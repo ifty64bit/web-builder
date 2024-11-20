@@ -1,5 +1,6 @@
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
+import { auth } from "./routes/auth";
 
 const app = new Elysia()
     .use(
@@ -8,7 +9,7 @@ const app = new Elysia()
         })
     )
     .get("/", ({ path }) => `Hello Elysia. Path: ${path}`)
-    .get("/hello/:name", ({ params }) => `Hello ${params.name}. I am Elysia.`)
+    .use(auth)
     .listen(3000);
 
 console.log(

@@ -1,16 +1,30 @@
-import api from "eden";
-import { useEffect, useState } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import RootLayout from "./layouts/RootLayout";
 
+const router = createBrowserRouter([
+    {
+        element: <RootLayout />,
+        children: [
+            {
+                path: "/",
+                element: <Home />,
+            },
+            {
+                path: "/login",
+                element: <Login />,
+            },
+            {
+                path: "/register",
+                element: <Register />,
+            },
+        ],
+    },
+]);
 function App() {
-    const [data, setData] = useState<any>(null);
-    useEffect(() => {
-        async function fetchData() {
-            const response = await api.hello({ name: "Ifty" }).get();
-            setData(response.data);
-        }
-        fetchData();
-    }, []);
-    return <div>{JSON.stringify(data, null, 2)}</div>;
+    return <RouterProvider router={router} />;
 }
 
 export default App;
